@@ -1,0 +1,8 @@
+DB:
+  baseUrl: localhost
+  port: 27017
+  dbName: 
+    development: koa_dev
+    production: koa_pro
+  user: root
+  pass: '123321'

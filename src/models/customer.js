@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const customerSchema = new Schema({
-  customerId: {
-    type: Schema.Types.ObjectId,
-    ref: 'customer_info',
-    required: true
-  },
+  // customerId: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'customer_info',
+  //   required: true
+  // },
   code: {
     type: String,
     required: true,
@@ -16,8 +16,13 @@ const customerSchema = new Schema({
     type: String,
     required: true,
   },
+  standard: {
+    type: String,
+    required: true,
+  },
   manager: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   tel: {
@@ -29,8 +34,13 @@ const customerSchema = new Schema({
       message: '{VALUE} is not a valid phone number!'
     },
     required: false
+  },
+  comment: {
+    type: String,
+    required: false,
+    default: ''
   }
 }, { 
   timestamps: true 
 })
-module.exports = mongoose.model('customer', customerSchema)
+module.exports = mongoose.model('Customer', customerSchema)

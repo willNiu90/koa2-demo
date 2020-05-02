@@ -1,25 +1,11 @@
 const CustomerModel = require('../models/customer')
-const CustomerInfoModel = require('../models/customerInfo')
-
 
 class CustomerService {
   static async createCustomer(data) {
     console.log('data -> ', data)
-    const { info } = data
-    delete data.info
-    console.log('customerInfo -> ', info)
-    const customerInfo = new CustomerInfoModel({info})
-    const customerInfoRes = await customerInfo.save()
-    console.log('customerInfoRes -> ', customerInfoRes)
-    data.customerId = customerInfoRes._id
-    console.log('customer -> ', data)
     const customer = new CustomerModel(data)
     const customerRes = await customer.save()
-    return {
-      code: 200,
-      result: customerRes,
-      msg: 'success'
-    }
+    return customerRes
   }
   static async updateCustomer(id, data, opt) {
     const res = await CustomerModel.findByIdAndUpdate(id, data, opt)
@@ -38,23 +24,31 @@ class CustomerService {
     const res = await CustomerModel.create(array)
     return res
   }
-  static async getCustomers(data) {
-    console.log('data -> ', data)
-    const { skip, limit, seachKey } = data
+  static async getCustomer(_id) {
+    const data = await CustomerModel.findById({_id})
+    return data
+  }
+  static async getCustomers(params) {
+    console.log('params -> ', params)
+    const { skip, limit, seachKey } = params
     const seachKeyRe = seachKey && new RegExp(`${seachKey}`)
     console.log('seachKeyRe -> ', seachKeyRe)
     const seachObj = {}
     seachKeyRe && Object.assign(seachObj, {
       companyName: seachKeyRe
     })
-    const res = await CustomerModel.find(seachObj, null, {
+    const data = await CustomerModel.find(seachObj, null, {
       skip: Number(skip),
       limit: Number(limit),
       sort: {
         createdAt: -1,
       },
-    }).populate('customerId')
-    return res
+    }).populate('manager')
+    const count = await CustomerModel.count(seachObj)
+    return {
+      data,
+      count
+    }
   }
 }
 

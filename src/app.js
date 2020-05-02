@@ -36,15 +36,15 @@ app.use(async (ctx, next) => {
     if (err.status === 401) {
       ctx.status = 401
       ctx.body = {
-        code: '401',
-        data: null,
+        code: 401,
+        result: null,
         msg: 'token失效，请重新登录'
       }
     } else {
       ctx.status = err.statusCode || err.status || 500
       ctx.body = {
         code: ctx.status,
-        data: null,
+        result: null,
         msg: err.message
       }
       ctx.app.emit('error', err, ctx)

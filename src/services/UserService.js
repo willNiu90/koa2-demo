@@ -25,6 +25,10 @@ class UserService {
     const res = await UserModel.findOne({_id: id})
     return res
   }
+  static async login(obj) {
+    const res = await UserModel.findOne(obj)
+    return res
+  }
 }
 
 module.exports = UserService

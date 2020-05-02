@@ -1,11 +1,13 @@
 const CustomerService = require('../services/CustomerService')
+const ResponseObj = require('../utils/response')
 class CustomerControler {
   static async create(ctx) {
     const data = ctx.request.body
-    const res = Array.isArray(data) ? 
+    const result = Array.isArray(data) ? 
           await CustomerService.createCustomers(data) : 
           await CustomerService.createCustomer(data)
-    ctx.body = res
+    const retObj = new ResponseObj({result})
+    ctx.body = retObj
   }
   static async update(ctx) {
     const data = ctx.request.body
@@ -22,13 +24,15 @@ class CustomerControler {
   }
   static async show(ctx) {
     const { id } = ctx.params
-    const res = await CustomerService.getCustomers(id)
-    ctx.body = res
+    const result = await CustomerService.getCustomer(id)
+    const retObj = new ResponseObj({result})
+    ctx.body = retObj
   }
   static async list(ctx) {
     const data = ctx.qs
-    const res = await CustomerService.getCustomers(data)
-    ctx.body = res
+    const result = await CustomerService.getCustomers(data)
+    const retObj = new ResponseObj({result})
+    ctx.body = retObj
   }
 }
 module.exports = CustomerControler

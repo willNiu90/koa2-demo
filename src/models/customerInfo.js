@@ -9,4 +9,4 @@ const customerInfoSchema = new Schema({
 }, { 
   timestamps: true 
 })
-module.exports = mongoose.model('customer_info', customerInfoSchema)
+module.exports = mongoose.model('Customer_Info', customerInfoSchema)

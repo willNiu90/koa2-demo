@@ -1,8 +1,13 @@
 const router = require('koa-router')()
-const user = require('./user')
-const customer = require('./customer')
+const fs = require('fs')
+const files = fs.readdirSync(__dirname)
 
-router.use(user.routes(),  user.allowedMethods())
-router.use(customer.routes(),  customer.allowedMethods())
+files.forEach(file => {
+  if(file.includes('index')) return
+  const currentRouter = require(`./${file}`)
+  router.use('/api/v1', currentRouter.routes(), currentRouter.allowedMethods())
+})
 
 module.exports = router
+
+

@@ -7,6 +7,9 @@ const customerInfoSchema = new Schema({
     required: true
   }
 }, { 
-  timestamps: true 
+  timestamps: {
+    createdAt: 'createdTime',
+    updatedAt: 'updatedTime'
+  }
 })
 module.exports = mongoose.model('Customer_Info', customerInfoSchema)

@@ -24,12 +24,16 @@ class UserControler {
       return ctx.body = retObj
     }
   }
-  static logout(ctx) {
-    ctx.response.body = 'logout'
-  }
   static async create(ctx) {
     const data = ctx.request.body
     const result = await UserService.createUser(data)
+    const retObj = new ResponseObj({result})
+    ctx.body = retObj
+  }
+  static async update(ctx) {
+    const data = ctx.request.body
+    const { id } = ctx.params
+    const result = await UserService.updateUser(id, data)
     const retObj = new ResponseObj({result})
     retObj.res = res
     ctx.body = retObj

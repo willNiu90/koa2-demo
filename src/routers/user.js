@@ -3,8 +3,8 @@ const userCtrl = require('../controllers/UserController')
 
 const routers = router
   .post('/login', userCtrl.login)
-  .get('/logout', userCtrl.logout)
   .post('/users', userCtrl.create)
+  .put('/users/:id', userCtrl.update)
   .get('/users/:id', userCtrl.show)
   .get('/users', userCtrl.list)
   

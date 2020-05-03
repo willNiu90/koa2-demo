@@ -11,8 +11,16 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  organization: {
+    type: Schema.Types.ObjectId,
+    required: false,
+    ref: 'Organization'
+  }
 }, { 
-  timestamps: true 
+  timestamps: {
+    createdAt: 'createdTime',
+    updatedAt: 'updatedTime'
+  } 
 })
 
 module.exports = mongoose.model('User', userSchema)

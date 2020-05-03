@@ -62,7 +62,7 @@ app.use(koajwt({
 }).unless({
   path: [/\login/]
 }))
-app.use(routers.routes()).use(routers.allowedMethods)
+app.use(routers.routes(), routers.allowedMethods())
 
 
 app.listen(3000)

@@ -1,13 +1,25 @@
 const UserModel = require('../models/user')
-
+const OrganizationModel = require('../models/organization')
 class UserService {
   static async createUser(data) {
-    let user = new UserModel(data)
-    const res = await user.save()
+    const { organization } = data
+    const user = new UserModel(data)
+    const userRes = await user.save()
+    // update oragization
+    const { _id } = userRes
+    const res = OrganizationModel.findByIdAndUpdate(organization, {
+      $push : { members : _id }
+    })
+    return res
+  }
+  static async updateUser(id, data) {
+    const res = UserModel.findByIdAndUpdate(id, data, {
+      new: true
+    })
     return res
   }
   static async createUsers(data) {
-    const array = []
+    let array = []
     for(let i = 0; i < 10000; i++) {
       let obj = Object.assign({}, data)
       obj.name = obj.name + i

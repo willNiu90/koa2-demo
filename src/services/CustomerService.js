@@ -26,6 +26,11 @@ class CustomerService {
   }
   static async getCustomer(_id) {
     const data = await CustomerModel.findById({_id})
+    data.test = 'test'
+    return data
+  }
+  static async removeCustomer(_id) {
+    const data = await CustomerModel.findByIdAndRemove(_id)
     return data
   }
   static async getCustomers(params) {

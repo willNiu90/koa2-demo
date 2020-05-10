@@ -25,8 +25,7 @@ function mkdirsSync( dirname ) {
  * @return {string}          文件后缀名
  */
 function getSuffixName( fileName ) {
-  let nameList = fileName.split('.')
-  return nameList[nameList.length - 1]
+  return fileName.split('.').pop()
 }
 
 /**
@@ -37,25 +36,32 @@ function getSuffixName( fileName ) {
  */
 function uploadFile( ctx, options) {
   let req = ctx.req
-  let res = ctx.res
   let busboy = new Busboy({headers: req.headers})
 
   // 获取类型
   let fileType = options.fileType || 'common'
   let filePath = path.join( options.path,  fileType)
-  let mkdirResult = mkdirsSync( filePath )
+  mkdirsSync( filePath )
 
   return new Promise((resolve, reject) => {
     console.log('文件上传中...')
     let result = { 
       success: false,
       formData: {},
+      fileName: '',
+      uploadName: ''
     }
 
     // 解析请求文件事件
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-      let fileName = Math.random().toString(16).substr(2) + '.' + getSuffixName(filename)
-      let _uploadFilePath = path.join( filePath, fileName )
+      console.log('fieldname is', fieldname)
+      console.log('filename is', filename)
+      console.log('encoding is', encoding)
+      console.log('mimetype is', mimetype)
+      let uploadName = Math.random().toString(16).substr(2) + '.' + getSuffixName(filename)
+      let _uploadFilePath = path.join( filePath, uploadName )
+      result.fileName = filename
+      result.uploadName = uploadName
       let saveTo = path.join(_uploadFilePath)
 
       // 文件保存到制定路径

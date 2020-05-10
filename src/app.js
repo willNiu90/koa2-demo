@@ -51,7 +51,7 @@ app.use(convert(koaStatic(
 app.use(koajwt({
   secret: 'my_token'
 }).unless({
-  path: [/\login/]
+  path: [/\login/, /files/]
 }))
 app.use(routers.routes(), routers.allowedMethods())
 

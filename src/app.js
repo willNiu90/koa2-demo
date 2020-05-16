@@ -48,11 +48,11 @@ app.use(bodyParser())
 app.use(convert(koaStatic(
   path.join(__dirname, 'assets')
 )))
-app.use(koajwt({
-  secret: 'my_token'
-}).unless({
-  path: [/\login/, /files/, /test/]
-}))
+// app.use(koajwt({
+//   secret: 'my_token'
+// }).unless({
+//   path: [/\login/, /files/, /test/]
+// }))
 app.use(routers.routes(), routers.allowedMethods())
 
 

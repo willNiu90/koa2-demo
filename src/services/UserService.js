@@ -34,7 +34,7 @@ class UserService {
     return res
   }
   static async getUser(id) {
-    const res = await UserModel.findOne({_id: id})
+    const res = await UserModel.findOne({_id: id}).lean()
     return res
   }
   static async login(obj) {

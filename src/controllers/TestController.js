@@ -11,6 +11,14 @@ class TestControler {
     })
     ctx.body = res
   }
+  static async testTime(ctx) {
+    let startTimer = Date.now()
+    let timer = startTimer
+    while(timer < startTimer + 100) {
+      timer = Date.now()
+    }
+    ctx.body = 'success'
+  }
 }
 
 module.exports = TestControler

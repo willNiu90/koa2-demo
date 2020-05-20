@@ -17,6 +17,7 @@ const app = new Koa()
 const URL = `mongodb://${baseUrl}:${port}`
 const ENV = process.env.NODE_ENV
 
+console.log('env is', URL, ENV)
 mongoose.connect(URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

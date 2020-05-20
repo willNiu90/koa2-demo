@@ -25,7 +25,8 @@
     "nodemon": "^2.0.3"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon ./src/app.js",
+    "dev": "pm2-dev start ecosystem.config.js",
+    "pro": "NODE_ENV=development nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

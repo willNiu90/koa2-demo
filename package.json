@@ -22,12 +22,15 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "dev": "pm2-dev start ecosystem.config.js",
     "pro": "NODE_ENV=development nodemon index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha src/test/*.test.js"
   },
   "repository": {
     "type": "git",

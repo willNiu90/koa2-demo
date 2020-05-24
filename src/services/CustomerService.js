@@ -46,7 +46,7 @@ class CustomerService {
       skip: Number(skip),
       limit: Number(limit),
       sort: {
-        createdAt: -1,
+        createdAt: 1,
       },
     }).populate('manager')
     const count = await CustomerModel.count(seachObj)

@@ -15,9 +15,9 @@ const { baseUrl, port, user, pass, dbName } = config.DB
 const Koa = require('koa')
 const app = new Koa()
 const URL = `mongodb://${baseUrl}:${port}`
-const ENV = process.env.NODE_ENV
+const ENV = process.env.NODE_ENV || 'development'
 
-console.log('env is', URL, ENV)
+console.log('env is', URL, ENV, dbName[ENV])
 mongoose.connect(URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -58,3 +58,5 @@ app.use(routers.routes(), routers.allowedMethods())
 
 
 app.listen(3000)
+
+module.exports = app

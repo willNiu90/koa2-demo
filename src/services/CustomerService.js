@@ -1,5 +1,6 @@
 const CustomerModel = require('../models/customer')
-
+const fs = require('fs')
+const path = require('path')
 class CustomerService {
   static async createCustomer(data) {
     console.log('data -> ', data)
@@ -34,6 +35,12 @@ class CustomerService {
     return data
   }
   static async getCustomers(params) {
+    await new Promise(res => {
+      fs.readFile(path.resolve(__dirname, './FileService.js'), (err, data) => {
+        console.log(11, data)
+        res(data)
+      })
+    })
     console.log('params -> ', params)
     const { skip, limit, seachKey } = params
     const seachKeyRe = seachKey && new RegExp(`${seachKey}`)
